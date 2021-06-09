@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  group_name: MyString
+  group_about: MyString
+  group_location: MyString
+  group_time: MyString
+  open: false
+  game_id: 1
+  user_id: 1
+
+two:
+  group_name: MyString
+  group_about: MyString
+  group_location: MyString
+  group_time: MyString
+  open: false
+  game_id: 1
+  user_id: 1
