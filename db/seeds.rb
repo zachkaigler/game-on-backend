@@ -274,7 +274,7 @@ puts "Creating memberships!"
 
 m1 = Membership.create(
     user_id: u1.id,
-    group_id: group1.id,
+    group_id: group3.id,
     accepted: true,
     read: true
 )
