@@ -48,14 +48,6 @@ u4 = User.create(
     location: "Brooklyn, New York",
     profile_pic: "https://scontent-lga3-1.xx.fbcdn.net/v/t31.18172-8/12967309_10154178337494903_4327191474022520447_o.jpg?_nc_cat=111&ccb=1-3&_nc_sid=174925&_nc_ohc=0rHATi0dpv4AX8Cwrzw&_nc_ht=scontent-lga3-1.xx&oh=536bd2068af3f3fd570297bd5583977b&oe=60E74306"
 )
-u5 = User.create(
-    username: "jennytolls",
-    password: "123",
-    email: "test@gmail.com",
-    bio: "test bio",
-    location: "Brooklyn, New York",
-    profile_pic: "https://scontent-lga3-1.xx.fbcdn.net/v/t31.18172-8/12967309_10154178337494903_4327191474022520447_o.jpg?_nc_cat=111&ccb=1-3&_nc_sid=174925&_nc_ohc=0rHATi0dpv4AX8Cwrzw&_nc_ht=scontent-lga3-1.xx&oh=536bd2068af3f3fd570297bd5583977b&oe=60E74306"
-)
 u6 = User.create(
     username: "daves",
     password: "123",
@@ -188,18 +180,6 @@ u4_interest_3 = Interest.create(
     user_id: u4.id,
     game_id: game9.id
 )
-u5_interest_1 = Interest.create(
-    user_id: u5.id,
-    game_id: game8.id
-)
-u5_interest_2 = Interest.create(
-    user_id: u5.id,
-    game_id: game11.id
-)
-u5_interest_3 = Interest.create(
-    user_id: u5.id,
-    game_id: game3.id
-)
 u6_interest_1 = Interest.create(
     user_id: u6.id,
     game_id: game8.id
@@ -275,7 +255,7 @@ group4 = Group.create(
     group_location: "Brooklyn, NY",
     group_time: "Mondays, 2PM",
     open: true,
-    game_id: game3.id,
+    game_id: game8.id,
     user_id: u4.id,
     group_image: "https://i.imgur.com/dG2QGAA.png"
 )
@@ -315,13 +295,6 @@ m3 = Membership.create(
 
 m4 = Membership.create(
     user_id: u4.id,
-    group_id: group1.id,
-    accepted: true,
-    read: true
-)
-
-m5 = Membership.create(
-    user_id: u5.id,
     group_id: group1.id,
     accepted: true,
     read: true
