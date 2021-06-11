@@ -2,7 +2,7 @@ class UsersController < ApplicationController
     # Any time a request comes in with a token in the headers, before_action required
     # Whenever you have the before_action, you will always have @user at that time
     # The @user will always point to the user who's associated with the token
-    before_action :authorized, only: [:keep_logged_in]
+    before_action :authorized, only: [:keep_logged_in, :update]
 
     def index
         @users = User.all
@@ -17,6 +17,12 @@ class UsersController < ApplicationController
     def create
         @user = User.create(user_params)
         render json: {username: @user.username, id: @user.id, profile_pic: @user.profile_pic, token: encode_token({user_id: @user.id})}
+    end
+
+    def update
+        @user = User.find(params[:id])
+        @user.update(user_params)
+        render json: @user
     end
 
     def login
@@ -35,7 +41,7 @@ class UsersController < ApplicationController
     private
 
     def user_params
-        params.permit(:username, :password, :email, :profile_pic)
+        params.permit(:username, :password, :email, :profile_pic, :bio, :location, :id, :user)
     end
 
 end
