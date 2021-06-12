@@ -4,4 +4,5 @@ class GroupSerializer < ActiveModel::Serializer
   belongs_to :game
   belongs_to :user
   has_many :users
+  has_many :memberships
 end
