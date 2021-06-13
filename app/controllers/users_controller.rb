@@ -15,8 +15,14 @@ class UsersController < ApplicationController
     end
 
     def create
-        @user = User.create(user_params)
-        render json: {username: @user.username, id: @user.id, profile_pic: @user.profile_pic, games: @user.games, requests: @user.requests, all_requests_to_my_groups: @user.all_requests_to_my_groups, token: encode_token({user_id: @user.id})}
+        @user = User.new(user_params)
+
+        if @user.valid?
+            @user.save
+            render json: {username: @user.username, id: @user.id, profile_pic: @user.profile_pic, games: @user.games, requests: @user.requests, all_requests_to_my_groups: @user.all_requests_to_my_groups, token: encode_token({user_id: @user.id})}
+        else
+            render json: {error: "Username already taken"}
+        end
     end
 
     def update
@@ -38,10 +44,42 @@ class UsersController < ApplicationController
         render json: {username: @user.username, id: @user.id, profile_pic: @user.profile_pic, games: @user.games, requests: @user.requests, all_requests_to_my_groups: @user.all_requests_to_my_groups, token: encode_token({user_id: @user.id})}
     end
 
+    def search
+        @users = User.all
+        @games = Game.all
+        @groups = Group.all
+
+        @user_results = []
+        @game_results = []
+        @group_results = []
+
+        @users.each do |user|
+            if user[:username].downcase.include?(params[:query].downcase)
+                @user_results << user
+            end
+        end
+
+        @games.each do |game|
+            # if game[:name].downcase.include?(params[:query].downcase) || game[:users].map{|user| user[:username].downcase}.include?(params[:query].downcase)
+            if game[:name].downcase.include?(params[:query].downcase)
+                @game_results << game
+            end
+        end
+
+        @groups.each do |group|
+            # if group[:group_name].downcase.include?(params[:query].downcase) || game[:users].map{|user| user[:username].downcase}.include?(params[:query].downcase)
+            if group[:group_name].downcase.include?(params[:query].downcase)
+                @group_results << group        
+            end
+        end
+
+        render json: {user_results: @user_results, game_results: @game_results, group_results: @group_results}
+    end
+
     private
 
     def user_params
-        params.permit(:username, :password, :email, :profile_pic, :bio, :location, :id, :user)
+        params.permit(:username, :password, :email, :profile_pic, :bio, :location, :id, :user, :query)
     end
 
 end

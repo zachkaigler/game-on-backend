@@ -17,6 +17,8 @@ class User < ApplicationRecord
 
     has_secure_password
 
+    validates :username, uniqueness: { case_sensitive: false }
+
     def all_requests_to_my_groups
         requests = []
         self.owned_groups.each do |group|
