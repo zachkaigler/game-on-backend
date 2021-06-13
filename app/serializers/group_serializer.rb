@@ -5,4 +5,5 @@ class GroupSerializer < ActiveModel::Serializer
   belongs_to :user
   has_many :users
   has_many :memberships
+  has_many :requests
 end

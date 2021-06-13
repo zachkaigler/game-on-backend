@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
     def create
         @user = User.create(user_params)
-        render json: {username: @user.username, id: @user.id, profile_pic: @user.profile_pic, games: @user.games, token: encode_token({user_id: @user.id})}
+        render json: {username: @user.username, id: @user.id, profile_pic: @user.profile_pic, games: @user.games, requests: @user.requests, all_requests_to_my_groups: @user.all_requests_to_my_groups, token: encode_token({user_id: @user.id})}
     end
 
     def update
@@ -28,14 +28,14 @@ class UsersController < ApplicationController
     def login
         @user = User.find_by(username: params[:username])
         if @user && @user.authenticate(params[:password])
-            render json: {username: @user.username, id: @user.id, profile_pic: @user.profile_pic, games: @user.games, token: encode_token({user_id: @user.id})}
+            render json: {username: @user.username, id: @user.id, profile_pic: @user.profile_pic, games: @user.games, requests: @user.requests, all_requests_to_my_groups: @user.all_requests_to_my_groups, token: encode_token({user_id: @user.id})}
         else 
             render json: {error: "Incorrect username or password"}
         end
     end
 
     def keep_logged_in
-        render json: {username: @user.username, id: @user.id, profile_pic: @user.profile_pic, games: @user.games, token: encode_token({user_id: @user.id})}
+        render json: {username: @user.username, id: @user.id, profile_pic: @user.profile_pic, games: @user.games, requests: @user.requests, all_requests_to_my_groups: @user.all_requests_to_my_groups, token: encode_token({user_id: @user.id})}
     end
 
     private

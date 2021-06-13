@@ -17,4 +17,19 @@ class User < ApplicationRecord
 
     has_secure_password
 
+    def all_requests_to_my_groups
+        requests = []
+        self.owned_groups.each do |group|
+            group.requests.each do |request|
+                data = {
+                    request: request,
+                    sender_name: User.find(request.user_id).username,
+                    sender_pic: User.find(request.user_id).profile_pic,
+                    group_name: group.group_name 
+                }
+                requests << data
+            end
+        end
+        requests
+    end
 end
