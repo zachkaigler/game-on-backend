@@ -19,7 +19,7 @@ class UsersController < ApplicationController
 
         if @user.valid?
             @user.save
-            render json: {username: @user.username, id: @user.id, profile_pic: @user.profile_pic, games: @user.games, requests: @user.requests, all_requests_to_my_groups: @user.all_requests_to_my_groups, token: encode_token({user_id: @user.id})}
+            render json: {username: @user.username, id: @user.id, profile_pic: @user.profile_pic, games: @user.games, requests: @user.requests, all_requests_to_my_groups: @user.all_requests_to_my_groups, all_conversations: @user.all_conversations, token: encode_token({user_id: @user.id})}
         else
             render json: {error: "Username already taken"}
         end
@@ -34,14 +34,14 @@ class UsersController < ApplicationController
     def login
         @user = User.find_by(username: params[:username])
         if @user && @user.authenticate(params[:password])
-            render json: {username: @user.username, id: @user.id, profile_pic: @user.profile_pic, games: @user.games, requests: @user.requests, all_requests_to_my_groups: @user.all_requests_to_my_groups, token: encode_token({user_id: @user.id})}
+            render json: {username: @user.username, id: @user.id, profile_pic: @user.profile_pic, games: @user.games, requests: @user.requests, all_requests_to_my_groups: @user.all_requests_to_my_groups, all_conversations: @user.all_conversations, token: encode_token({user_id: @user.id})}
         else 
             render json: {error: "Incorrect username or password"}
         end
     end
 
     def keep_logged_in
-        render json: {username: @user.username, id: @user.id, profile_pic: @user.profile_pic, games: @user.games, requests: @user.requests, all_requests_to_my_groups: @user.all_requests_to_my_groups, token: encode_token({user_id: @user.id})}
+        render json: {username: @user.username, id: @user.id, profile_pic: @user.profile_pic, games: @user.games, requests: @user.requests, all_requests_to_my_groups: @user.all_requests_to_my_groups, all_conversations: @user.all_conversations, token: encode_token({user_id: @user.id})}
     end
 
     def search
@@ -60,14 +60,12 @@ class UsersController < ApplicationController
         end
 
         @games.each do |game|
-            # if game[:name].downcase.include?(params[:query].downcase) || game[:users].map{|user| user[:username].downcase}.include?(params[:query].downcase)
             if game[:name].downcase.include?(params[:query].downcase)
                 @game_results << game
             end
         end
 
         @groups.each do |group|
-            # if group[:group_name].downcase.include?(params[:query].downcase) || game[:users].map{|user| user[:username].downcase}.include?(params[:query].downcase)
             if group[:group_name].downcase.include?(params[:query].downcase)
                 @group_results << group        
             end

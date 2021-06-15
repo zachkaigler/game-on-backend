@@ -34,4 +34,33 @@ class User < ApplicationRecord
         end
         requests
     end
+
+    def all_conversations
+        # [*self.convos_a, *self.convos_b]
+        all_convos = []
+
+        self.convos_a.each do |convo|
+            data = {
+                convo: convo,
+                user_a_pic: User.find(convo.user_a_id).profile_pic,
+                user_a_username: User.find(convo.user_a_id).username,
+                user_b_pic: User.find(convo.user_b_id).profile_pic,
+                user_b_username: User.find(convo.user_b_id).username
+            }
+            all_convos << data
+        end
+
+        self.convos_b.each do |convo|
+            data = {
+                convo: convo,
+                user_a_pic: User.find(convo.user_a_id).profile_pic,
+                user_a_username: User.find(convo.user_a_id).username,
+                user_b_pic: User.find(convo.user_b_id).profile_pic,
+                user_b_username: User.find(convo.user_b_id).username
+            }
+            all_convos << data
+        end
+
+        all_convos
+    end
 end

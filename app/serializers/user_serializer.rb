@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :password_digest, :email, :bio, :location, :profile_pic, :all_requests_to_my_groups
+  attributes :id, :username, :password_digest, :email, :bio, :location, :profile_pic, :all_requests_to_my_groups, :all_conversations
   
   has_many :games
   has_many :owned_groups
