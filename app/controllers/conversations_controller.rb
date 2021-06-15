@@ -1,5 +1,5 @@
 class ConversationsController < ApplicationController
-    before_action :authorized, only: [:show, :create]
+    before_action :authorized, only: [ :create]
 
     def index
         @conversations = Conversation.all
