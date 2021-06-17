@@ -15,7 +15,8 @@ class UsersController < ApplicationController
     end
 
     def create
-        @user = User.new(user_params)
+        image = Cloudinary::Uploader.upload(params[:profile_pic])
+        @user = User.new(username: params[:username], password: params[:password], email: params[:email], profile_pic: image["url"])
 
         if @user.valid?
             @user.save
