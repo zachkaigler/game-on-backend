@@ -28,7 +28,12 @@ class UsersController < ApplicationController
 
     def update
         @user = User.find(params[:id])
-        @user.update(user_params)
+        if params[:profile_pic]
+            image = Cloudinary::Uploader.upload(params[:profile_pic])
+            @user.update(profile_pic: image["url"])
+        else 
+            @user.update(user_params)
+        end
         render json: @user
     end
 

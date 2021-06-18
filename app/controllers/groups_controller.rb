@@ -11,14 +11,20 @@ class GroupsController < ApplicationController
         render json: @group
     end
 
-    def create 
-        @group = Group.create(group_params)
+    def create
+        image = Cloudinary::Uploader.upload(params[:group_image]) 
+        @group = Group.create(group_name: params[:group_name], group_about: params[:group_about], group_location: params[:group_location], group_time: params[:group_time], open: params[:open], group_image: image["url"], game_id: params[:game_id], user_id: params[:user_id])
         render json: @group
     end
     
-    def update
+    def update 
         @group = Group.find(params[:id])
-        @group.update(group_params)
+        if params[:group_image]
+            image = Cloudinary::Uploader.upload(params[:group_image])
+            @group.update(group_image: image["url"])
+        else
+            @group.update(group_params)
+        end
         render json: @group
     end
 
