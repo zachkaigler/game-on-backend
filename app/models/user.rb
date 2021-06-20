@@ -36,7 +36,6 @@ class User < ApplicationRecord
     end
 
     def all_conversations
-        # [*self.convos_a, *self.convos_b]
         all_convos = []
 
         self.convos_a.each do |convo|
@@ -45,7 +44,8 @@ class User < ApplicationRecord
                 user_a_pic: User.find(convo.user_a_id).profile_pic,
                 user_a_username: User.find(convo.user_a_id).username,
                 user_b_pic: User.find(convo.user_b_id).profile_pic,
-                user_b_username: User.find(convo.user_b_id).username
+                user_b_username: User.find(convo.user_b_id).username,
+                unread_messages: convo.messages.where(read: false)
             }
             all_convos << data
         end
@@ -56,7 +56,8 @@ class User < ApplicationRecord
                 user_a_pic: User.find(convo.user_a_id).profile_pic,
                 user_a_username: User.find(convo.user_a_id).username,
                 user_b_pic: User.find(convo.user_b_id).profile_pic,
-                user_b_username: User.find(convo.user_b_id).username
+                user_b_username: User.find(convo.user_b_id).username,
+                unread_messages: convo.messages.where(read: false)
             }
             all_convos << data
         end
