@@ -14,6 +14,7 @@ class User < ApplicationRecord
 
     has_many :messages
     has_many :requests
+    has_many :posts
 
     has_secure_password
 

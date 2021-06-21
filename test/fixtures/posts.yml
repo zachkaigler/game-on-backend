@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: MyString
+  mood: MyString
+  date: MyString
+  group_id: MyString
+  user_id: MyString
+
+two:
+  content: MyString
+  mood: MyString
+  date: MyString
+  group_id: MyString
+  user_id: MyString
