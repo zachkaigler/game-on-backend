@@ -12,7 +12,7 @@ class PostsController < ApplicationController
         render json: @post
     end
 
-    def delete
+    def destroy
         @post = Post.find(params[:id])
         @post.destroy
     end
