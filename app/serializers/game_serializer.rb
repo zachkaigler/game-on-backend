@@ -1,7 +1,6 @@
 class GameSerializer < ActiveModel::Serializer
   attributes :id, :name
   attribute :users, if: :for_show
-  # has_many :users, if: :condition
   has_many :groups, if: :for_show
   has_many :interests, if: :for_show
 

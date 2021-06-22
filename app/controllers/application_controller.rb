@@ -11,7 +11,6 @@ class ApplicationController < ActionController::API
       def decoded_token
         if auth_header
           token = auth_header
-          # If the token is invalid, return nil instead of erroring out
           begin
             JWT.decode(token, 's3cr3t', true, algorithm: 'HS256')
           rescue JWT::DecodeError
