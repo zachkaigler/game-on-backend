@@ -9,7 +9,7 @@ class InterestsController < ApplicationController
     def create
         @user = User.find(params[:user_id])
         @interest = Interest.create(interest_params)
-        render json: @user.games
+        render json: @interest
     end
 
     def destroy
